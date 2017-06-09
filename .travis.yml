@@ -8,7 +8,7 @@ env:
     ELASTIX_URL=https://github.com/SuperElastix/elastix
     ELASTIX_SOURCE_DIR=${HOME}/Elastix-source
     ELASTIX_BUILD_DIR=${HOME}/Elastix-build
-    NIFTYREG_URL=http://cmiclab.cs.ucl.ac.uk/mmodat/niftyreg
+    NIFTYREG_URL=https://cmiclab.cs.ucl.ac.uk/mmodat/niftyreg.git
     NIFTYREG_SOURCE_DIR=${HOME}/Niftyreg-source
     NIFTYREG_BUILLD_DIR=${HOME}/Niftyreg-build
     SUPERELASTIX_SOURCE_DIR=${TRAVIS_BUILD_DIR}/SuperBuild
