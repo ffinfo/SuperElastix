@@ -8,6 +8,9 @@ env:
     ELASTIX_URL=https://github.com/SuperElastix/elastix
     ELASTIX_SOURCE_DIR=${HOME}/Elastix-source
     ELASTIX_BUILD_DIR=${HOME}/Elastix-build
+    NIFTYREG_URL=https://cmiclab.cs.ucl.ac.uk/mmodat/niftyreg
+    NIFTYREG_SOURCE_DIR=${HOME}/Niftyreg-source
+    NIFTYREG_BUILLD_DIR=${HOME}/Niftyreg-build
     SUPERELASTIX_SOURCE_DIR=${TRAVIS_BUILD_DIR}/SuperBuild
     SUPERELASTIX_BUILD_DIR=${HOME}/SuperElastix-build
     OMP_NUM_THREADS=2
@@ -19,6 +22,8 @@ cache:
     - ${ITK_BUILD_DIR}
     - ${ELASTIX_SOURCE_DIR}
     - ${ELASTIX_BUILD_DIR}
+    - ${NIFTYREG_SOURCE_DIR}
+    - ${NIFTYREG_BUILD_DIR}
     
 matrix:
   include:
@@ -47,6 +52,15 @@ script:
       mkdir -p ${ITK_BUILD_DIR} &&
       cd ${ITK_BUILD_DIR} &&
       cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON -DCMAKE_VISIBILITY_INLINES_HIDDEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_SKIP_RPATH:BOOL=ON -DITK_LEGACY_REMOVE:BOOL=ON -DITK_USE_KWSTYLE:BOOL=OFF -DITK_BUILD_DEFAULT_MODULES:BOOL=ON -DModule_ITKReview:BOOL=ON ${ITK_SOURCE_DIR} &&
+      make --jobs=4; fi
+  - if [[ ! -e ${NIFTYREG_BUILD_DIR}/reg-apps/reg_adalin ]]; then
+      rm -rf ${NIFTYREG_SOURCE_DIR} {NIFTYREG_BUILD_DIR} &&
+      git clone ${NIFTYREG_URL} ${NIFTYREG_SOURCE_DIR} &&
+      cd ${NIFTYREG_SOURCE_DIR} &&
+      git checkout 88b369becb6bdbda22ea96a0bef2b83bee85b219 &&
+      mkdir -p ${NIFTYREG_BUILD_DIR} &&
+      cd ${NIFTYREG_BUILD_DIR} &&
+      cmake -DCMAKE_BUILD_TYPE=Release ${NIFTYREG_SOURCE_DIR} &&
       make --jobs=4; fi
   - if [[ ! -e ${ELASTIX_BUILD_DIR}/src/UseElastix.cmake ]]; then
       rm -rf ${ELASTIX_SOURCE_DIR} ${ELASTIX_BUILD_DIR} &&
