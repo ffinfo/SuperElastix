@@ -60,7 +60,7 @@ script:
       git checkout 88b369becb6bdbda22ea96a0bef2b83bee85b219 &&
       mkdir -p ${NIFTYREG_BUILD_DIR} &&
       cd ${NIFTYREG_BUILD_DIR} &&
-      cmake -DCMAKE_BUILD_TYPE=Release ${NIFTYREG_SOURCE_DIR} &&
+      cmake -DBUILD_ALL_DEP:BOOL=ON -DCMAKE_BUILD_TYPE=Release ${NIFTYREG_SOURCE_DIR} &&
       make --jobs=4; fi
   - if [[ ! -e ${ELASTIX_BUILD_DIR}/src/UseElastix.cmake ]]; then
       rm -rf ${ELASTIX_SOURCE_DIR} ${ELASTIX_BUILD_DIR} &&
