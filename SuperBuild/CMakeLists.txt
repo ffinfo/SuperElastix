@@ -32,8 +32,9 @@ find_package( Git REQUIRED )
 include( ExternalProject )
 
 set( CMAKE_MODULE_PATH
-  ${PROJECT_SOURCE_DIR}
-  ${PROJECT_SOURCE_DIR}/../CMake
+  ${CMAKE_SOURCE_DIR}
+  ${CMAKE_SOURCE_DIR}/CMake
+  ${CMAKE_SOURCE_DIR}/../CMake
   ${CMAKE_MODULE_PATH}
 )
 
