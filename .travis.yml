@@ -10,7 +10,7 @@ env:
     ELASTIX_BUILD_DIR=${HOME}/Elastix-build
     NIFTYREG_URL=https://cmiclab.cs.ucl.ac.uk/mmodat/niftyreg.git
     NIFTYREG_SOURCE_DIR=${HOME}/Niftyreg-source
-    NIFTYREG_BUILLD_DIR=${HOME}/Niftyreg-build
+    NIFTYREG_BUILD_DIR=${HOME}/Niftyreg-build
     SUPERELASTIX_SOURCE_DIR=${TRAVIS_BUILD_DIR}/SuperBuild
     SUPERELASTIX_BUILD_DIR=${HOME}/SuperElastix-build
     OMP_NUM_THREADS=2
