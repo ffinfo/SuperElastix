@@ -31,6 +31,7 @@ find_package( Git REQUIRED )
 
 include( ExternalProject )
 
+message( STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}" )
 set( CMAKE_MODULE_PATH
   ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/CMake
