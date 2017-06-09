@@ -61,7 +61,7 @@ script:
       mkdir -p ${ELASTIX_BUILD_DIR} &&
       cd ${ELASTIX_BUILD_DIR} &&
       cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=${ITK_BUILD_DIR} -DCMAKE_BUILD_TYPE=Release ${ELASTIX_SOURCE_DIR} &&
-      make --jobs=4 && 
+      make --jobs=4; fi
   - if [[ ! -e ${NIFTYREG_BUILD_DIR}/reg-apps/reg_adalin ]]; then
       rm -rf ${NIFTYREG_SOURCE_DIR} {NIFTYREG_BUILD_DIR} &&
       git clone -c http.sslVerify=false ${NIFTYREG_URL} ${NIFTYREG_SOURCE_DIR} &&
@@ -70,7 +70,7 @@ script:
       mkdir -p ${NIFTYREG_BUILD_DIR} &&
       cd ${NIFTYREG_BUILD_DIR} &&
       cmake -DBUILD_ALL_DEP:BOOL=ON -DCMAKE_BUILD_TYPE=Release ${NIFTYREG_SOURCE_DIR} &&
-      make --jobs=4; fi
+      make --jobs=4 &&
       touch ${HOME_DIR}/built_cache; fi
   - cd ${SUPERELASTIX_BUILD_DIR}
   - if [[ ! -e ${HOME_DIR}/built_cache ]]; then
