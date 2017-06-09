@@ -9,7 +9,7 @@ env:
     ELASTIX_SOURCE_DIR=${HOME}/Elastix-source
     ELASTIX_BUILD_DIR=${HOME}/Elastix-build
     SUPERELASTIX_SOURCE_DIR=${TRAVIS_BUILD_DIR}/SuperBuild
-    SUPERELASTIX_BUILD_DIR=${HOME_DIR}/SuperElastix-build
+    SUPERELASTIX_BUILD_DIR=${HOME}/SuperElastix-build
     OMP_NUM_THREADS=2
 
 cache:
