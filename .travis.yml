@@ -71,7 +71,7 @@ script:
       cd ${NIFTYREG_BUILD_DIR} &&
       cmake -DBUILD_ALL_DEP:BOOL=ON -DCMAKE_BUILD_TYPE=Release ${NIFTYREG_SOURCE_DIR} &&
       make --jobs=4 &&
-      touch ${HOME_DIR}/built_cache; fi
+      touch ${HOME}/built_cache; fi
   - cd ${SUPERELASTIX_BUILD_DIR}
   - if [[ ! -e ${HOME_DIR}/built_cache ]]; then
       cmake -DUSE_SYSTEM_ITK:BOOL=ON -DITK_DIR=${ITK_BUILD_DIR} -DUSE_SYSTEM_ELASTIX:BOOL=ON -DELASTIX_USE_FILE=${ELASTIX_BUILD_DIR}/src/UseElastix.cmake -DUSE_SYSTEM_NIFTYREG:BOOL=ON -DNIFTYREG_DIR=${NIFTYREG_DIR} -DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w -DCMAKE_BUILD_TYPE=Release ${SUPERELASTIX_SOURCE_DIR} &&

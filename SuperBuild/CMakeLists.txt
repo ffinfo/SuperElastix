@@ -32,8 +32,8 @@ find_package( Git REQUIRED )
 include( ExternalProject )
 
 set( CMAKE_MODULE_PATH
-  ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/../CMake
+  ${PROJECT_SOURCE_DIR}
+  ${PROJECT_SOURCE_DIR}/../CMake
   ${CMAKE_MODULE_PATH}
 )
 
@@ -47,7 +47,7 @@ mark_as_advanced( BUILD_EXPRESS )
 option( BUILD_EXPRESS "" OFF )
 
 # Build release by default
-if( NOT CMAKE_BUILD_TYPE)
+if( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE "Release" CACHE STRING 
   "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." 
   FORCE )
