@@ -61,7 +61,7 @@ script:
       mkdir -p ${ELASTIX_BUILD_DIR} &&
       cd ${ELASTIX_BUILD_DIR} &&
       cmake -DBUILD_TESTING:BOOL=OFF -DELASTIX_BUILD_EXECUTABLE:BOOL=OFF -DITK_DIR=${ITK_BUILD_DIR} -DCMAKE_BUILD_TYPE=Release ${ELASTIX_SOURCE_DIR} &&
-      make --jobs=4; fi
+      make --jobs=4; fi &&
       touch ${HOME}/built_cache
   - if [[ ! -e ${NIFTYREG_BUILD_DIR}/reg-apps/reg_aladin && ! -e ${HOME}/built_cache ]]; then
       rm -rf ${NIFTYREG_SOURCE_DIR} {NIFTYREG_BUILD_DIR} &&
