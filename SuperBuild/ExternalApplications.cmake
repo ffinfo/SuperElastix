@@ -28,6 +28,8 @@ ExternalProject_Add( ${proj}
     -DSuperElastixSuperBuild_DIR:PATH=${PROJECT_BINARY_DIR}
     -DSuperElastix_DIR:PATH=${SuperElastix_DIR}
     -DITK_DIR:PATH=${ITK_DIR}
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
   DEPENDS ${SUPERELASTIX_DEPENDENCIES}
   INSTALL_COMMAND ""
+  BUILD_ALWAYS 1 
 )

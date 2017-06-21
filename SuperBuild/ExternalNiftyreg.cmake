@@ -36,7 +36,9 @@ ExternalProject_Add( ${proj}
    --no-warn-unused-cli
    -DBUILD_ALL_DEP:BOOL=ON
    -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+   -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
   BUILD_COMMAND ${SELX_SUPERBUILD_COMMAND}
+  BUILD_ALWAYS 1
 )
 
 ExternalProject_Get_Property( ${proj} install_dir )
