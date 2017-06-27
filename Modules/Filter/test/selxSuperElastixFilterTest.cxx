@@ -17,6 +17,7 @@
 *
 *=========================================================================*/
 
+#include <selxSuperElastixFilter.h>
 #include "selxSuperElastixFilterCustomComponents.h"
 
 #include "itkUniquePointerDataObjectDecorator.h"
@@ -118,12 +119,20 @@ TEST_F( SuperElastixFilterTest, ImageOnly )
 
   // Instantiate SuperElastixFilter before each test and
   // register the components we want to have available in SuperElastix
-  SuperElastixFilterCustomComponents< RegisterComponents >::Pointer superElastixFilter;
-  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterCustomComponents< RegisterComponents >::New() );
+  typedef SuperElastixFilterCustomComponents< RegisterComponents > SuperElastixFilterType;
+  SuperElastixFilterType::Pointer superElastixFilter;
+  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterType::New() );
 
   SuperElastixFilterBlueprintPointer superElastixBlueprint = SuperElastixFilterBlueprintType::New();
   superElastixBlueprint->Set( blueprint );
   superElastixFilter->SetBlueprint( superElastixBlueprint );
+
+  // add logger
+  SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
+  std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
+  selxLogger->AddConsole();
+  itkLogger->Set( selxLogger);
+  superElastixFilter->SetLogger(itkLogger);
 
   superElastixFilter->SetInput( "InputImage", imageReader3D->GetOutput() );
   imageWriter3D->SetInput( superElastixFilter->GetOutput< Image3DType >( "OutputImage" ) );

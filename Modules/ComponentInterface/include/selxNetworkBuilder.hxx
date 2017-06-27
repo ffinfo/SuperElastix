@@ -53,6 +53,7 @@ NetworkBuilder< ComponentList >::Configure()
 
   if( !this->m_isConfigured )
   {
+    this->m_Logger.Log( SeverityType::SELX_INFO, "===== Applying Component Criteria FROM LOGGER =====" );
     std::cout << "===== Applying Component Criteria =====" << std::endl;
     this->ApplyComponentConfiguration();
 
