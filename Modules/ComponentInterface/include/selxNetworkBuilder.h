@@ -60,7 +60,7 @@ public:
   NetworkBuilder( const Logger & logger );
   virtual ~NetworkBuilder() {}
 
-  virtual bool AddBlueprint( const std::unique_ptr< Blueprint > & blueprint );
+  virtual bool AddBlueprint(const Blueprint &blueprint);
 
   /** Read configuration at the blueprints nodes and edges and return true if all components could be uniquely selected*/
   virtual bool Configure();

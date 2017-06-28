@@ -32,10 +32,9 @@ NetworkBuilder< ComponentList >::NetworkBuilder( const Logger & logger ) : m_Log
 
 template< typename ComponentList >
 bool
-NetworkBuilder< ComponentList >::AddBlueprint( const std::unique_ptr< Blueprint > & blueprint )
+NetworkBuilder< ComponentList >::AddBlueprint(const Blueprint &blueprint)
 {
   this->m_Blueprint->ComposeWith( blueprint );
-  //m_Blueprint = std::make_shared< Blueprint >(*blueprint);
   return true;
 }
 

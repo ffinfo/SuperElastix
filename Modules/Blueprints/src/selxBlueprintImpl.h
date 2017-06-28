@@ -93,7 +93,7 @@ struct Blueprint::BlueprintImpl
 
   bool ConnectionExists( ComponentNameType upstream, ComponentNameType downstream ) const;
 
-  bool ComposeWith( std::unique_ptr< Blueprint > const & other );
+  bool ComposeWith(const Blueprint &other);
 
   // Returns a vector of the Component names at the incoming direction
   ComponentNamesType GetInputNames( const ComponentNameType name ) const;

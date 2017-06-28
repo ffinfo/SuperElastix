@@ -58,7 +58,7 @@ SuperElastixFilterBase
   {
     // Was Blueprint modified by Set() or by AddBlueprint?
     // delete previous blueprint and start all over with new one
-    m_NetworkBuilder = m_NetworkBuilderFactory->New( *this->m_Logger->Get() );
+    m_NetworkBuilder = m_NetworkBuilderFactory->New( this->m_Logger->Get() );
     this->m_NetworkBuilder->AddBlueprint( this->m_Blueprint->Get() );
     this->m_AllUniqueComponents   = this->m_NetworkBuilder->Configure();
     this->m_IsBlueprintParsedOnce = true;

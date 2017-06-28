@@ -127,7 +127,7 @@ TEST_F( SuperElastixFilterTest, ImageOnly )
   superElastixBlueprint->Set( blueprint );
   superElastixFilter->SetBlueprint( superElastixBlueprint );
 
-  // add logger
+  // Add logger
   SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
   std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
   selxLogger->AddConsole();
@@ -167,8 +167,15 @@ TEST_F( SuperElastixFilterTest, ImageAndMesh )
 
   // Instantiate SuperElastixFilter before each test and
   // register the components we want to have available in SuperElastix
-  SuperElastixFilterCustomComponents< RegisterComponents >::Pointer superElastixFilter;
-  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterCustomComponents< RegisterComponents >::New() );
+  typedef SuperElastixFilterCustomComponents< RegisterComponents > SuperElastixFilterType;
+  SuperElastixFilterType::Pointer superElastixFilter;
+  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterType::New() );
+
+  SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
+  std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
+  selxLogger->AddConsole();
+  itkLogger->Set( selxLogger);
+  superElastixFilter->SetLogger(itkLogger);
 
   SuperElastixFilterBlueprintPointer superElastixFilterBlueprint = SuperElastixFilterBlueprintType::New();
   superElastixFilterBlueprint->Set( blueprint );
@@ -198,8 +205,15 @@ TEST_F( SuperElastixFilterTest, TooManyInputs )
 
   // Instantiate SuperElastixFilter before each test and
   // register the components we want to have available in SuperElastix
-  SuperElastixFilterCustomComponents< RegisterComponents >::Pointer superElastixFilter;
-  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterCustomComponents< RegisterComponents >::New() );
+  typedef SuperElastixFilterCustomComponents< RegisterComponents > SuperElastixFilterType;
+  SuperElastixFilterType::Pointer superElastixFilter;
+  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterType::New() );
+
+  SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
+  std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
+  selxLogger->AddConsole();
+  itkLogger->Set( selxLogger);
+  superElastixFilter->SetLogger(itkLogger);
 
   SuperElastixFilterBlueprintPointer superElastixFilterBlueprint = SuperElastixFilterBlueprintType::New();
   superElastixFilterBlueprint->Set( blueprint );
@@ -225,8 +239,15 @@ TEST_F( SuperElastixFilterTest, TooManySources )
 
   // Instantiate SuperElastixFilter before each test and
   // register the components we want to have available in SuperElastix
-  SuperElastixFilterCustomComponents< RegisterComponents >::Pointer superElastixFilter;
-  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterCustomComponents< RegisterComponents >::New() );
+  typedef SuperElastixFilterCustomComponents< RegisterComponents > SuperElastixFilterType;
+  SuperElastixFilterType::Pointer superElastixFilter;
+  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterType::New() );
+
+  SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
+  std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
+  selxLogger->AddConsole();
+  itkLogger->Set( selxLogger);
+  superElastixFilter->SetLogger(itkLogger);
 
   SuperElastixFilterBlueprintPointer superElastixFilterBlueprint = SuperElastixFilterBlueprintType::New();
   superElastixFilterBlueprint->Set( blueprint );
@@ -249,8 +270,15 @@ TEST_F( SuperElastixFilterTest, TooManyOutputs )
 
   // Instantiate SuperElastixFilter before each test and
   // register the components we want to have available in SuperElastix
-  SuperElastixFilterCustomComponents< RegisterComponents >::Pointer superElastixFilter;
-  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterCustomComponents< RegisterComponents >::New() );
+  typedef SuperElastixFilterCustomComponents< RegisterComponents > SuperElastixFilterType;
+  SuperElastixFilterType::Pointer superElastixFilter;
+  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterType::New() );
+
+  SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
+  std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
+  selxLogger->AddConsole();
+  itkLogger->Set( selxLogger);
+  superElastixFilter->SetLogger(itkLogger);
 
   SuperElastixFilterBlueprintPointer superElastixFilterBlueprint = SuperElastixFilterBlueprintType::New();
   superElastixFilterBlueprint->Set( blueprint );
@@ -273,8 +301,15 @@ TEST_F( SuperElastixFilterTest, TooManySinks )
 
   // Instantiate SuperElastixFilter before each test and
   // register the components we want to have available in SuperElastix
-  SuperElastixFilterCustomComponents< RegisterComponents >::Pointer superElastixFilter;
-  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterCustomComponents< RegisterComponents >::New() );
+  typedef SuperElastixFilterCustomComponents< RegisterComponents > SuperElastixFilterType;
+  SuperElastixFilterType::Pointer superElastixFilter;
+  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterType::New() );
+
+  SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
+  std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
+  selxLogger->AddConsole();
+  itkLogger->Set( selxLogger);
+  superElastixFilter->SetLogger(itkLogger);
 
   SuperElastixFilterBlueprintPointer superElastixFilterBlueprint = SuperElastixFilterBlueprintType::New();
   superElastixFilterBlueprint->Set( blueprint );
@@ -301,8 +336,15 @@ TEST_F( SuperElastixFilterTest, UnsatisfiedConnections )
 
   // Instantiate SuperElastixFilter before each test and
   // register the components we want to have available in SuperElastix
-  SuperElastixFilterCustomComponents< RegisterComponents >::Pointer superElastixFilter;
-  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterCustomComponents< RegisterComponents >::New() );
+  typedef SuperElastixFilterCustomComponents< RegisterComponents > SuperElastixFilterType;
+  SuperElastixFilterType::Pointer superElastixFilter;
+  EXPECT_NO_THROW( superElastixFilter = SuperElastixFilterType::New() );
+
+  SuperElastixFilterType::LoggerPointer itkLogger = SuperElastixFilterType::LoggerType::New();
+  std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
+  selxLogger->AddConsole();
+  itkLogger->Set( selxLogger);
+  superElastixFilter->SetLogger(itkLogger);
 
   SuperElastixFilterBlueprintPointer superElastixBlueprint = SuperElastixFilterBlueprintType::New();
   superElastixBlueprint->Set( blueprint );

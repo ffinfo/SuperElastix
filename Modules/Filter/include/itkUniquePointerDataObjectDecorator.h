@@ -87,7 +87,7 @@ public:
   virtual void Set( std::unique_ptr< T > & val );
 
   /** Get the contained object */
-  virtual std::unique_ptr< T > Get() { return std::move( m_Component ); }
+  virtual const T & Get() { return *m_Component; }
   // Get() const cannot exist, since getting a unique_ptr to the component invalides the m_Component and alters the Decorator.
   //virtual const std::unique_ptr< T > Get() const { return std::move(m_Component); }
 

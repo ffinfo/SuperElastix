@@ -126,7 +126,7 @@ Blueprint
 
 bool
 Blueprint
-::ComposeWith( std::unique_ptr< Blueprint > const & other )
+::ComposeWith(const Blueprint &other)
 {
   return this->m_Pimple->ComposeWith( other );
 }

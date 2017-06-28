@@ -222,20 +222,20 @@ Blueprint::BlueprintImpl
 
 bool
 Blueprint::BlueprintImpl
-::ComposeWith( std::unique_ptr< Blueprint > const & other )
+::ComposeWith(const Blueprint &other)
 {
   // Make a backup of the current blueprint status in case composition fails
   GraphType graph_backup = GraphType( this->m_Graph );
 
   // Copy-in all components (Nodes)
-  for( auto const & componentName : other->GetComponentNames() )
+  for( auto const & componentName : other.GetComponentNames() )
   {
     // Does other blueprint use component with a name that already exists?
     if( this->ComponentExists( componentName ) )
     {
       // Component exists, check if properties can be merged
       auto ownProperties    = this->GetComponent( componentName );
-      auto othersProperties = other->GetComponent( componentName );
+      auto othersProperties = other.GetComponent( componentName );
 
       for( auto const & othersEntry : othersProperties )
       {
@@ -278,20 +278,20 @@ Blueprint::BlueprintImpl
     else
     {
       // Create Component copying properties of other
-      this->SetComponent( componentName, other->GetComponent( componentName ) );
+      this->SetComponent( componentName, other.GetComponent( componentName ) );
     }
   }
   // Copy-in all connections (Edges)
-  for( auto const & componentName : other->GetComponentNames() )
+  for( auto const & componentName : other.GetComponentNames() )
   {
-    for( auto incomingName : other->GetInputNames( componentName ) )
+    for( auto incomingName : other.GetInputNames( componentName ) )
     {
       // Does other blueprint have a connection that already exists?
       if( this->ConnectionExists( incomingName, componentName ) )
       {
         // Connection exists, check if properties can be merged
         auto ownProperties    = this->GetConnection( incomingName, componentName );
-        auto othersProperties = other->GetConnection( incomingName, componentName );
+        auto othersProperties = other.GetConnection( incomingName, componentName );
 
         for( auto const & othersEntry : othersProperties )
         {
@@ -334,7 +334,7 @@ Blueprint::BlueprintImpl
       else
       {
         // Create Component copying properties of other
-        this->SetConnection( incomingName, componentName, other->GetConnection( incomingName, componentName ) );
+        this->SetConnection( incomingName, componentName, other.GetConnection( incomingName, componentName ) );
       }
     }
   }
