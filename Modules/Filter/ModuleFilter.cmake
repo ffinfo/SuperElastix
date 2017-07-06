@@ -22,6 +22,7 @@ set( MODULE ModuleFilter )
 
 set( ${MODULE}_INCLUDE_DIRS
   ${${MODULE}_SOURCE_DIR}/include
+  ${${MODULE}_BINARY_DIR}/include
 )
 
 # Module source files
@@ -42,12 +43,11 @@ set( ${MODULE}_LIBRARIES
 
 set( ${MODULE}_MODULE_DEPENDENCIES
   ModuleBlueprints
+  ModuleComponentInterface
   ModuleController
   ModuleElastix
-  ModuleExamples
-  ModuleItkImageRegistrationMethodv4
-  ModuleItkSmoothingRecursiveGaussianImageFilter
   ModuleSinksAndSources
-  ModuleNiftyreg
   ModuleLogger
 )
+
+include( DefaultComponents )
