@@ -24,24 +24,25 @@ set(Niftyreg_FIND_COMPONENTS _reg_aladin _reg_blockMatching _reg_f3d _reg_femTra
 	list(APPEND Niftyreg_FIND_COMPONENTS png z)
 #endif (WIN32)
 
-set(Niftyreg_INCLUDE_DIR ${NIFTYREG_DIR}/include CACHE PATH "Installed Include Directory of NiftyReg" )
-#set(Niftyreg_LIBRARIES "" CACHE STRING "Found libraries NiftyReg" )
-#message(STATUS NIFTYREG_DIR/lib "${NIFTYREG_DIR}/lib")
+set( Niftyreg_INCLUDE_DIR ${NIFTYREG_DIR}/include CACHE PATH "NiftyReg include directory." )
+set( Niftyreg_LIBRARIES "" CACHE PATH "NiftyReg libraries." )
 foreach(component ${Niftyreg_FIND_COMPONENTS})
-#  message(component: ${component})
   find_library(Niftyreg_${component}_LIBRARY
     ${component}
     "${NIFTYREG_DIR}/lib"
     DOC "Path to NiftyReg library files (lib_*.a)"
   )
-  set(Niftyreg_LIBRARIES ${Niftyreg_LIBRARIES} ${Niftyreg_${component}_LIBRARY})
+  list( APPEND Niftyreg_LIBRARIES ${Niftyreg_${component}_LIBRARY} )
 endforeach()
 
 # handle the QUIETLY and REQUIRED arguments and set Niftyreg_FOUND to TRUE if
 # all listed variables are TRUE
-#include(${CMAKE_CURRENT_LIST_DIR}/FindPackageHandleStandardArgs.cmake)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Niftyreg DEFAULT_MSG Niftyreg_LIBRARIES Niftyreg_INCLUDE_DIR)
-mark_as_advanced(
-  Niftyreg_INCLUDE_DIR
-  Niftyreg_LIBRARIES
-)
+if( Niftyreg_LIBRARIES MATCHES "NOTFOUND")
+  set( Niftyreg-NOTFOUND TRUE )
+else()
+  find_package_handle_standard_args(Niftyreg DEFAULT_MSG Niftyreg_LIBRARIES Niftyreg_INCLUDE_DIR)
+  mark_as_advanced(
+    Niftyreg_INCLUDE_DIR
+    Niftyreg_LIBRARIES
+  )
+endif()

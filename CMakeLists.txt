@@ -22,6 +22,9 @@ cmake_minimum_required( VERSION 3.0.2 )
 # ---------------------------------------------------------------------
 project( SuperElastix )
 
+# Required by GTEST_ADD_TEST with CMake version 3.3 or higher
+cmake_policy( SET CMP0057 NEW )
+
 set( SUPERELASTIX_MAJOR_VERSION 0)
 set( SUPERELASTIX_MINOR_VERSION 1)
 set( SUPERELASTIX_PATCH_VERSION 0)
@@ -137,11 +140,12 @@ option( BUILD_EXPRESS "Use express build." OFF )
 # ---------------------------------------------------------------------
 # Build SuperElastix
 
-# Initialize the build system and build the core. These calls are mandatory. 
-# Do not change and do not call anywhere else.
+# Initialize the build system and build the core.
 include( selxModules )
 _selxmodules_initialize()
 _selxmodule_enable( ModuleFilter "SuperElastix" )
+
+enable_user_requested_modules()
 
 # Build applications
 if( ${BUILD_APPLICATIONS} AND NOT ${BUILD_EXPRESS} )
@@ -149,8 +153,6 @@ if( ${BUILD_APPLICATIONS} AND NOT ${BUILD_EXPRESS} )
   _selxapplications_initialize()
   enable_applications( SUPERELASTIX_APPLICATIONS )
 endif() 
-
-# TODO: Functionality to disable default modules/applications
 
 # ---------------------------------------------------------------------
 # Testing

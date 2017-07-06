@@ -25,8 +25,9 @@ if (OPENMP_FOUND)
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}" )
 endif()
 
+# TODO: Why does "REQUIRED" not produce a fatal error?
 find_package( Niftyreg REQUIRED )
-if( NOT Niftyreg_FOUND )
+if( Niftyreg-NOTFOUND )
   mark_as_advanced( NIFTYREG_DIR )
   set( NIFTYREG_DIR "" CACHE PATH "Path to Niftyreg build folder." )
   message( FATAL_ERROR "Could not find Niftyreg. Point NIFTYREG_DIR to its install folder." )

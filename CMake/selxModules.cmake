@@ -87,6 +87,7 @@ macro( _selxmodules_initialize )
   
 endmacro()
 
+# TODO: Fails in Moodule cmake file should be fatal, user should be able to then disable module
 macro( _selxmodule_enable MODULE UPSTREAM )
   _selxmodule_check_name( ${MODULE} )
 
@@ -97,7 +98,7 @@ macro( _selxmodule_enable MODULE UPSTREAM )
     include( ${${MODULE}_CMAKE_FILE} )
     
     if( ${MODULE}_MODULE_DEPENDENCIES )
-      _selxmodule_enable_dependencies( ${MODULE} ${MODULE}_MODULE_DEPENDENCIES )
+      _selxmodule_enable_dependencies( ${MODULE}_MODULE_DEPENDENCIES ${MODULE} )
     endif()
 
     if( ${MODULE}_INCLUDE_DIRS )
@@ -137,30 +138,27 @@ macro( _selxmodule_enable MODULE UPSTREAM )
       list( APPEND SUPERELASTIX_LIBRARY_DIRS ${${MODULE}_LIBRARY_DIRS} )
     endif()
 	
-    message( STATUS "${MODULE} enabled." ) 
+    message( STATUS "${MODULE} enabled." )
   else()
     message( STATUS "${MODULE} already enabled." )
   endif()
 endmacro()
 
-macro( _selxmodule_enable_dependencies UPSTREAM MODULES )
+macro( _selxmodule_enable_dependencies MODULES UPSTREAM )
   foreach( MODULE ${${MODULES}} )
     _selxmodule_enable( ${MODULE} ${UPSTREAM} )
   endforeach()
 endmacro()
 
-macro( _selxmodule_target_file TARGETS )
-  foreach( TARGET ${${TARGETS}} )
-    set( ${TARGET}_FILE $<TARGET_FILE:TARGET> )
+# Macro for enabling user-requested modules. The user enables modules
+# by setting e.g. USE_ModuleElastix to ON in the CMake cache.
+macro( enable_user_requested_modules )
+  foreach( MODULE ${SUPERELASTIX_MODULES} )
+    if( NOT ${MODULE}_IS_ENABLED AND ${USE_${MODULE}} )
+       # Module is not enabled by default but has been requested by user
+       _selxmodule_enable( MODULE "user" )
+    endif()
   endforeach()
-endmacro()
-
-macro( _selxmodule_disable MODULE )
-  set( USE_${MODULE} FALSE )
-  list( FILTER SUPERELASTIX_INCLUDE_DIRS MATCHES EXCLUDE REGEX "(.*)${MODULE}(.*)" )
-  list( FILTER SUPERELASTIX_LIBRARY_DIRS MATCHES EXCLUDE REGEX "(.*)${MODULE}(.*)" )
-  list( FILTER SUPERELASTIX_LIBRARIES MATCHES EXCLUDE REGEX "(.*)${MODULE}(.*)" )
-  list( FILTER SUPERELASTIX_TEST_SOURCE_FILES MATCHES EXCLUDE REGEX "(.*)${MODULE}(.*)" )
 endmacro()
 
 # ---------------------------------------------------------------------
