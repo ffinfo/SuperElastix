@@ -44,8 +44,6 @@ set( ${MODULE}_LIBRARIES
 set( ${MODULE}_MODULE_DEPENDENCIES
   ModuleBlueprints
   ModuleComponentInterface
-  ModuleController
-  ModuleElastix
   ModuleSinksAndSources
   ModuleLogger
 )

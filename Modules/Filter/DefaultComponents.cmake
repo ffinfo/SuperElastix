@@ -76,11 +76,12 @@ foreach( dim ${ELASTIX_IMAGE_DIMENSIONS} )
     endif()
 
     set( MODULE_COMPONENT_INCLUDE_FILES
-      "{MODULE_COMPONENT_INCLUDE_FILES}" ${${MODULE}_COMPONENT_INCLUDE_FILES}\n" # <-- Generate automatically or by user?
+      "{MODULE_COMPONENT_INCLUDE_FILES}" ${${MODULE}_COMPONENT_INCLUDE_FILES}\n" # <-- TODO: Generate automatically or by user?
     )
     
+    # TODO: Should this be filled with dims types here or in module's cmake?
     set( MODULE_COMPONENT_TYPELISTS 
-      "${MODULE_COMPONENT_TYPELISTS}" ${${MODULE}_COMPONENT_TYPELIST}\n" <-- Generate automatically or by user?
+      "${MODULE_COMPONENT_TYPELISTS}" ${${MODULE}_COMPONENT_TYPELIST}\n" <-- TODO: Generate automatically or by user?
     )
   endforeach()
 endforeach()
