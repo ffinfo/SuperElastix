@@ -36,7 +36,7 @@
 #include "selxNetworkContainer.h"
 #include "selxAnyFileReader.h"
 #include "selxAnyFileWriter.h"
-#include "selxLogger.h"
+#include "selxLoggerObject.h"
 
 namespace selx
 {
@@ -48,8 +48,8 @@ class NetworkBuilderBase
 
 public:
 
-  typedef Blueprint::ComponentNameType  ComponentNameType;
-  typedef Blueprint::ComponentNamesType ComponentNamesType;
+  typedef selxBlueprintObject::ComponentNameType  ComponentNameType;
+  typedef selxBlueprintObject::ComponentNamesType ComponentNamesType;
   typedef std::map<
     std::string, SourceInterface::Pointer > SourceInterfaceMapType;
   typedef std::map<
@@ -62,7 +62,7 @@ public:
 
   virtual ~NetworkBuilderBase() {}
 
-  virtual bool AddBlueprint( const std::unique_ptr< Blueprint > & blueprint ) = 0;
+  virtual bool AddBlueprint( const Blueprint & blueprint ) = 0;
 
   /** Read configuration at the blueprints nodes and edges and return true if all components could be uniquely selected*/
   virtual bool Configure() = 0;

@@ -19,13 +19,14 @@
 
 set( ${MODULE}_INCLUDE_DIRS
   ${${MODULE}_SOURCE_DIR}/include
+  ${${MODULE}_SOURCE_DIR}/src # Internal components need selxLogger.h
 )
 
 # Module source files
 set( ${MODULE}_SOURCE_FILES
+  ${${MODULE}_SOURCE_DIR}/src/selxLoggerObject.cxx
+  ${${MODULE}_SOURCE_DIR}/src/selxLogger.h
   ${${MODULE}_SOURCE_DIR}/src/selxLogger.cxx
-  ${${MODULE}_SOURCE_DIR}/src/selxLoggerImpl.h
-  ${${MODULE}_SOURCE_DIR}/src/selxLoggerImpl.cxx
 )
 
 # Export tests

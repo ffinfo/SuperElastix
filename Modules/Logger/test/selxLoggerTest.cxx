@@ -17,7 +17,7 @@
  *
  *=========================================================================*/
 
-#include "selxLogger.h"
+#include "selxLoggerObject.h"
 
 #include "gtest/gtest.h"
 

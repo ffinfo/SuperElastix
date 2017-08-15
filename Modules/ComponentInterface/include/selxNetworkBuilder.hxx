@@ -20,21 +20,21 @@
 #include "selxNetworkBuilder.h"
 #include "selxKeys.h"
 #include "selxSuperElastixComponent.h"
-#include "selxLogger.h"
+#include "selxLoggerObject.h"
 
 namespace selx
 {
 template< typename ComponentList >
-NetworkBuilder< ComponentList >::NetworkBuilder( const Logger & logger ) : m_Logger(logger), m_isConfigured( false ), m_Blueprint( new Blueprint )
+NetworkBuilder< ComponentList >::NetworkBuilder( const Logger & logger ) : m_Logger( logger ), m_isConfigured( false )
 {
 }
 
 
 template< typename ComponentList >
 bool
-NetworkBuilder< ComponentList >::AddBlueprint( const std::unique_ptr< Blueprint > & blueprint )
+NetworkBuilder< ComponentList >::AddBlueprint( const Blueprint & blueprint )
 {
-  this->m_Blueprint->ComposeWith( blueprint );
+  this->m_Blueprint.ComposeWith( blueprint );
   //m_Blueprint = std::make_shared< Blueprint >(*blueprint);
   return true;
 }
@@ -57,20 +57,20 @@ NetworkBuilder< ComponentList >::Configure()
     this->ApplyComponentConfiguration();
 
     auto nonUniqueComponentNames = this->GetNonUniqueComponentNames();
-    std::cout << nonUniqueComponentNames.size() << " out of " << m_Blueprint->GetComponentNames().size()
+    std::cout << nonUniqueComponentNames.size() << " out of " << m_Blueprint.GetComponentNames().size()
               << " Components could not be uniquely selected" << std::endl << std::endl;
 
     std::cout << "===== Applying Connection Criteria =====" << std::endl;
     this->ApplyConnectionConfiguration();
     nonUniqueComponentNames = this->GetNonUniqueComponentNames();
-    std::cout << nonUniqueComponentNames.size() << " out of " << m_Blueprint->GetComponentNames().size()
+    std::cout << nonUniqueComponentNames.size() << " out of " << m_Blueprint.GetComponentNames().size()
               << " Components could not be uniquely selected" << std::endl << std::endl;
 
     std::cout << "===== Performing Handshakes between unique and non-unique Components =====" << std::endl;
     this->PropagateConnectionsWithUniqueComponents();
 
     nonUniqueComponentNames = this->GetNonUniqueComponentNames();
-    std::cout << nonUniqueComponentNames.size() << " out of " << m_Blueprint->GetComponentNames().size()
+    std::cout << nonUniqueComponentNames.size() << " out of " << m_Blueprint.GetComponentNames().size()
               << " Components could not be uniquely selected" << std::endl << std::endl;
     this->m_isConfigured = true;
   }
@@ -106,7 +106,7 @@ NetworkBuilderBase::ComponentNamesType
 NetworkBuilder< ComponentList >::GetNonUniqueComponentNames()
 {
   ComponentNamesType                  nonUniqueComponentNames;
-  const Blueprint::ComponentNamesType componentNames = m_Blueprint->GetComponentNames();
+  const Blueprint::ComponentNamesType componentNames = m_Blueprint.GetComponentNames();
   for( auto const & name : componentNames )
   {
     // The current idea of the configuration setup is that the number of
@@ -147,14 +147,14 @@ NetworkBuilder< ComponentList >::ApplyComponentConfiguration()
   // realized components at each node and not the ComponentSelectors that,
   // in turn, hold 1 (or more) component.
 
-  Blueprint::ComponentNamesType componentNames = this->m_Blueprint->GetComponentNames();
+  Blueprint::ComponentNamesType componentNames = this->m_Blueprint.GetComponentNames();
 
   for( auto const & name : componentNames )
   {
     std::cout << " Blueprint Node: " << name << std::endl;
     ComponentSelectorPointer currentComponentSelector = std::make_shared< ComponentSelectorType >( name, this->m_Logger );
 
-    Blueprint::ParameterMapType currentProperty = this->m_Blueprint->GetComponent( name );
+    Blueprint::ParameterMapType currentProperty = this->m_Blueprint.GetComponent( name );
     for( auto const & criterion : currentProperty )
     {
       currentComponentSelector->AddCriterion( criterion );
@@ -202,12 +202,12 @@ NetworkBuilder< ComponentList >::ApplyConnectionConfiguration()
   // interface that is of that dimensionality and the accepting interface as well, but the
   // interfaces could still be of different types (including different other template arguments)
 
-  Blueprint::ComponentNamesType componentNames = this->m_Blueprint->GetComponentNames();
+  Blueprint::ComponentNamesType componentNames = this->m_Blueprint.GetComponentNames();
   for( auto const & name : componentNames )
   {
-    for( auto const & outgoingName : this->m_Blueprint->GetOutputNames( name ) )
+    for( auto const & outgoingName : this->m_Blueprint.GetOutputNames( name ) )
     {
-      Blueprint::ParameterMapType connectionProperties = this->m_Blueprint->GetConnection( name, outgoingName );
+      Blueprint::ParameterMapType connectionProperties = this->m_Blueprint.GetConnection( name, outgoingName );
 
       //TODO:
       //1: this lambda function converts the blueprint properties: map<string,vector<string>> to interfacecriteria: map<string,string>, consider redesign.
@@ -266,12 +266,12 @@ NetworkBuilder< ComponentList >::PropagateConnectionsWithUniqueComponents()
     for( auto const & name : nonUniqueComponentNames )
     {
       // check all components that accept from component "name"
-      for( auto const & outgoingName : this->m_Blueprint->GetOutputNames( name ) )
+      for( auto const & outgoingName : this->m_Blueprint.GetOutputNames( name ) )
       {
         // if the accepting component is also not uniquely selected, we do not try to check all valid combinations, since this would make the handshake logic too complicated
         if( std::find( nonUniqueComponentNames.begin(), nonUniqueComponentNames.end(), outgoingName ) == nonUniqueComponentNames.end() )
         {
-          Blueprint::ParameterMapType          connectionProperties = this->m_Blueprint->GetConnection( name, outgoingName );
+          Blueprint::ParameterMapType          connectionProperties = this->m_Blueprint.GetConnection( name, outgoingName );
           ComponentBase::InterfaceCriteriaType interfaceCriteria;
           //TODO:
           //1: this lambda function converts the blueprint properties: map<string,vector<string>> to interfacecriteria: map<string,string>, consider redesign.
@@ -298,13 +298,13 @@ NetworkBuilder< ComponentList >::PropagateConnectionsWithUniqueComponents()
         }
       }
       // check all components that provide to component "name"
-      for( auto const & incomingName : this->m_Blueprint->GetInputNames( name ) )
+      for( auto const & incomingName : this->m_Blueprint.GetInputNames( name ) )
       {
         // if the providing component is also not uniquely selected, we do not try to check all valid combinations, since this would make the handshake logic too complicated
         if( std::find( nonUniqueComponentNames.begin(), nonUniqueComponentNames.end(), incomingName ) == nonUniqueComponentNames.end() )
         {
           //std::cout << "Check which " << name << " component can Accept from " << incomingName << std::endl;
-          Blueprint::ParameterMapType          connectionProperties = this->m_Blueprint->GetConnection( incomingName, name );
+          Blueprint::ParameterMapType          connectionProperties = this->m_Blueprint.GetConnection( incomingName, name );
           ComponentBase::InterfaceCriteriaType interfaceCriteria;
           //TODO:
           //1: this lambda function converts the blueprint properties: map<string,vector<string>> to interfacecriteria: map<string,string>, consider redesign.
@@ -341,17 +341,17 @@ NetworkBuilder< ComponentList >::ConnectComponents()
 {
   bool isAllSuccess = true;
 
-  Blueprint::ComponentNamesType componentNames = this->m_Blueprint->GetComponentNames();
+  Blueprint::ComponentNamesType componentNames = this->m_Blueprint.GetComponentNames();
   for( auto const & name : componentNames )
   {
-    for( auto const & outgoingName : this->m_Blueprint->GetOutputNames( name ) )
+    for( auto const & outgoingName : this->m_Blueprint.GetOutputNames( name ) )
     {
       //TODO check direction upstream/downstream input/output source/target
       //TODO GetComponent returns NULL if possible components !=1 we can check for that, but NetworkBuilder::UpdateSelectors() does something similar.
       ComponentBase::Pointer sourceComponent = this->m_ComponentSelectorContainer[ name ]->GetComponent();
       ComponentBase::Pointer targetComponent = this->m_ComponentSelectorContainer[ outgoingName ]->GetComponent();
 
-      Blueprint::ParameterMapType          connectionProperties = this->m_Blueprint->GetConnection( name, outgoingName );
+      Blueprint::ParameterMapType          connectionProperties = this->m_Blueprint.GetConnection( name, outgoingName );
       ComponentBase::InterfaceCriteriaType interfaceCriteria;
       std::for_each( connectionProperties.begin(), connectionProperties.end(), [ &interfaceCriteria ](
           Blueprint::ParameterMapType::value_type kv ) mutable {
@@ -386,7 +386,7 @@ NetworkBuilder< ComponentList >::CheckConnectionsSatisfied()
 {
   bool isAllSatisfied = true;
 
-  Blueprint::ComponentNamesType componentNames = this->m_Blueprint->GetComponentNames();
+  Blueprint::ComponentNamesType componentNames = this->m_Blueprint.GetComponentNames();
   for( auto const & name : componentNames )
   {
     ComponentBase::Pointer component   = this->m_ComponentSelectorContainer[ name ]->GetComponent();

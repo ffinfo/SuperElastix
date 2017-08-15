@@ -32,6 +32,7 @@
 #include <cstring>
 #include <map>
 
+#include "selxLogger.h"
 #include "selxBlueprint.h"
 #include "selxNetworkContainer.h"
 #include "selxInterfaces.h"
@@ -60,7 +61,7 @@ public:
   NetworkBuilder( const Logger & logger );
   virtual ~NetworkBuilder() {}
 
-  virtual bool AddBlueprint( const std::unique_ptr< Blueprint > & blueprint );
+  virtual bool AddBlueprint( const Blueprint & blueprint );
 
   /** Read configuration at the blueprints nodes and edges and return true if all components could be uniquely selected*/
   virtual bool Configure();
@@ -110,12 +111,12 @@ protected:
   //NetworkBuilder should be constructed with a blueprint.
   //Blueprint::ConstPointer m_Blueprint;
   //Blueprint const * m_Blueprint;
-  std::unique_ptr< Blueprint > m_Blueprint;
 
   // A selector for each node, that each can hold multiple instantiated components. Ultimately is should be 1 component each.
-  ComponentSelectorContainerType m_ComponentSelectorContainer;
-  bool                           m_isConfigured;
-  const Logger &                 m_Logger;
+  ComponentSelectorContainerType  m_ComponentSelectorContainer;
+  bool                            m_isConfigured;
+  const Logger &                  m_Logger;
+  Blueprint &                     m_Blueprint;
 
 private:
 };

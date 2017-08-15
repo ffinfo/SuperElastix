@@ -20,7 +20,7 @@
 #ifndef Logger_cxx
 #define Logger_cxx
 
-#include "selxLoggerImpl.h"
+#include "selxLogger.h"
 
 #include "boost/log/sources/record_ostream.hpp"
 #include "boost/log/utility/setup/file.hpp"
@@ -29,25 +29,25 @@
 
 namespace selx
 {
-Logger::LoggerImpl
-::LoggerImpl()
+selxLogger
+::selxLogger()
 {
-  this->m_Logger = boost::log::sources::severity_channel_logger< SeverityType, ChannelType >();
+  this->m_Logger = boost::log::sources::severity_channel_logger< SeverityType, selxLoggerObject::ChannelType >();
 
   // Add LineID, TimeStamp, ProcessID and ThreadID
   boost::log::add_common_attributes();
 }
 
 
-Logger::LoggerImpl
-::~LoggerImpl()
+selxLogger
+::~selxLogger()
 {
 }
 
 
 void
-Logger::LoggerImpl
-::AddConsole( FormatType format )
+selxLogger
+::AddConsole( selxLoggerObject::FormatType format )
 {
   boost::log::add_console_log(
     std::cout,
@@ -68,7 +68,7 @@ Logger::LoggerImpl
 
 // void
 // Logger::LoggerImpl
-// ::AddFile( FileNameType fileName, ChannelType channel, FormatType format )
+// ::AddFile( FileNameType fileName, selxLoggerObject::ChannelType channel, selxLoggerObject::FormatType format )
 // {
 //   boost::log::add_file_log(
 //     boost::log::keywords::file_name = fileName,
@@ -78,8 +78,8 @@ Logger::LoggerImpl
 // }
 
 void
-Logger::LoggerImpl
-::Log( SeverityType severity, MessageType message )
+selxLogger
+::Log( SeverityType severity, selxLoggerObject::MessageType message )
 {
   boost::log::record record = this->m_Logger.open_record( boost::log::keywords::severity = severity );
   if( record )

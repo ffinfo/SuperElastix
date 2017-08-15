@@ -23,7 +23,7 @@
 namespace selx
 {
 template< bool dummy >
-RegistrationControllerComponent< dummy >::RegistrationControllerComponent( const std::string & name, const LoggerInterface & logger ) : Superclass(
+RegistrationControllerComponent< dummy >::RegistrationControllerComponent( const std::string & name, const Logger & logger ) : Superclass(
     name,
     logger )
 {

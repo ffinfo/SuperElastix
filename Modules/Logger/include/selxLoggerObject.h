@@ -17,14 +17,18 @@
  *
  *=========================================================================*/
 
-#ifndef Logger_h
-#define Logger_h
+// There already is an selxLoggerObject preprocessor definition in ITK
+#ifndef selxLoggerObject_h
+#define selxLoggerObject_h
 
 #include <string>
 #include <memory>
 
+#include "itkDataObject.h"
+
 namespace selx
 {
+
 enum class SeverityType {
   SELX_TRACE,
   SELX_DEBUG,
@@ -34,24 +38,32 @@ enum class SeverityType {
   SELX_FATAL
 };
 
-class LoggerInterface
+class selxLoggerObject : public itk::DataObject
 {
 public:
 
-  typedef const std::string MessageType;
+  /** Standard ITK typedefs. */
+  typedef selxLoggerObject                       Self;
+  typedef itk::ProcessObject              Superclass;
+  typedef itk::SmartPointer< Self >       Pointer;
+  typedef itk::SmartPointer< const Self > ConstPointer;
 
-  virtual void Log( SeverityType severity, MessageType message ) const = 0;
-};
+  /** Method for creation through the object factory. */
+  itkNewMacro( Self );
 
-class Logger : public LoggerInterface
-{
-public:
+  /** Run-time type information (and related methods). */
+  itkTypeMacro( Self, itk::ProcessObject );
+
+  /** The actual logger is a pimpled member variable */
+  class Logger;
+  typedef std::unique_ptr< Logger > LoggerPointer;
+
+  void SetLogger( Logger, LoggerPointer );
+  const Logger & GetLogger(void );
 
   typedef const std::string ChannelType;
   typedef const std::string FormatType;
-  using LoggerInterface::MessageType;
-  Logger();
-  ~Logger();
+  typedef const std::string MessageType;
 
   void AddConsole( FormatType format = "[%LineID% %TimeStamp%]: %Message%" );
 
@@ -67,9 +79,8 @@ public:
 
 private:
 
-  class LoggerImpl;
-  std::unique_ptr< LoggerImpl > m_Pimple;
+  std::unique_ptr< Logger > m_Logger;
 };
 } // namespace
 
-#endif // Logger_h
+#endif // selxLoggerObject_h

@@ -23,6 +23,7 @@
 #include "itkProcessObject.h"
 #include "selxBlueprint.h"
 #include "selxLogger.h"
+#include "selxLoggerObject.h"
 
 #include "selxAnyFileReader.h"
 #include "selxAnyFileWriter.h"
@@ -67,13 +68,12 @@ public:
   typedef BlueprintType::Pointer                             BlueprintPointer;
   typedef BlueprintType::ConstPointer                        BlueprintConstPointer;
 
-  typedef itk::UniquePointerDataObjectDecorator< Logger >    LoggerType;
-  typedef LoggerType::Pointer                                LoggerPointer;
-  typedef LoggerType::ConstPointer                           LoggerConstPointer;
-
-  // Setting a Blueprint creates a pipeline such that when SuperElastixFilter is updated it checks if the blueprint has been modified and if so, SuperElastixFilter resets its internals and start building the blueprint from scratch
   itkSetObjectMacro( Blueprint, BlueprintType );
-  itkSetObjectMacro( Logger, LoggerType );
+  typedef selxLoggerObject::Logger         Logger;
+  typedef selxLoggerObject::Pointer        LoggerObjectPointer;
+  typedef selxLoggerObject::ConstPointer   LoggerObjectConstPointer;
+  itkSetObjectMacro( Logger, selxLoggerObject );
+  const Logger & GetLogger( void );
 
   // Adding a Blueprint composes SuperElastixFilter' internal blueprint (accessible by Set/Get Blueprint) with the otherBlueprint.
   // void AddBlueprint(BlueprintPointer otherBlueprint);
@@ -117,10 +117,6 @@ public:
 
   void Update( void ) ITK_OVERRIDE;
 
-  void SetLogger( LoggerPointer logger );
-
-  LoggerPointer GetLogger();
-
 protected:
 
   // default constructor initialized with an empty NetworkBuilder
@@ -132,8 +128,6 @@ protected:
 
   std::unique_ptr< NetworkBuilderFactoryBase > m_NetworkBuilderFactory;
   std::unique_ptr< NetworkBuilderBase > m_NetworkBuilder;
-
-  LoggerPointer m_Logger;
 
 private:
 

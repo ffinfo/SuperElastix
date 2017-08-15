@@ -36,6 +36,8 @@ SuperElastixFilterBase
   // Disable "Primary" as required input
   // TODO: Blueprint should become primary
   this->SetRequiredInputNames( {} );
+  // Set default logger
+  this->SetInput( "Logger", selxLoggerObject::New() );
 } // end Constructor
 
 

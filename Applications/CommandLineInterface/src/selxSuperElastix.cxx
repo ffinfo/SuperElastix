@@ -22,7 +22,7 @@
 #include "selxConfigurationReader.h"
 #include "selxAnyFileReader.h"
 #include "selxAnyFileWriter.h"
-#include "selxLogger.h"
+#include "selxLoggerObject.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -62,7 +62,7 @@ main( int ac, char * av[] )
     selx::SuperElastixFilter::LoggerPointer itkLogger = selx::SuperElastixFilter::LoggerType::New();
     std::unique_ptr<selx::Logger> selxLogger(new selx::Logger());
     selxLogger->AddConsole();
-    itkLogger->Set( selxLogger);
+    itkLogger->Set( selxLogger );
 
     superElastixFilter->SetLogger(itkLogger);
 

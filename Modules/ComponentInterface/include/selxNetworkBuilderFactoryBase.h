@@ -20,6 +20,8 @@
 #ifndef NetworkBuilderFactoryBase_h
 #define NetworkBuilderFactoryBase_h
 
+#include "selxLogger.h"
+
 namespace selx
 {
 class NetworkBuilderFactoryBase

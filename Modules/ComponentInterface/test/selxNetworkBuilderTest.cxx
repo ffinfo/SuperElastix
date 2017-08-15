@@ -18,7 +18,7 @@
  *=========================================================================*/
 
 #include "selxNetworkBuilder.h"
-#include "selxLogger.h"
+#include "selxLoggerObject.h"
 
 //#include "ComponentFactory.h"
 #include "selxTransformComponent1.h"
