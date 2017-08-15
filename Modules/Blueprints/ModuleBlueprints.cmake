@@ -19,13 +19,14 @@
 
 set( ${MODULE}_INCLUDE_DIRS
   ${${MODULE}_SOURCE_DIR}/include
+  ${${MODULE}_SOURCE_DIR}/src # Internal components may want the Blueprint.h
 )
 
 # Module source files
 set( ${MODULE}_SOURCE_FILES
+  ${${MODULE}_SOURCE_DIR}/src/selxBlueprintObject.cxx
+  ${${MODULE}_SOURCE_DIR}/src/selxBlueprint.h
   ${${MODULE}_SOURCE_DIR}/src/selxBlueprint.cxx
-  ${${MODULE}_SOURCE_DIR}/src/selxBlueprintImpl.h
-  ${${MODULE}_SOURCE_DIR}/src/selxBlueprintImpl.cxx
 )
 
 # Export tests

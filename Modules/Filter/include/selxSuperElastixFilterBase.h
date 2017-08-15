@@ -21,8 +21,7 @@
 #define selxSuperElastixFilterBase_h
 
 #include "itkProcessObject.h"
-#include "selxBlueprint.h"
-#include "selxLogger.h"
+#include "selxBlueprintObject.h"
 #include "selxLoggerObject.h"
 
 #include "selxAnyFileReader.h"
@@ -64,11 +63,12 @@ public:
   typedef AnyFileReader AnyFileReaderType;
   typedef AnyFileWriter AnyFileWriterType;
 
-  typedef itk::UniquePointerDataObjectDecorator< Blueprint > BlueprintType;
-  typedef BlueprintType::Pointer                             BlueprintPointer;
-  typedef BlueprintType::ConstPointer                        BlueprintConstPointer;
+  typedef selxBlueprintObject::Blueprint     Blueprint;
+  typedef selxBlueprintObject::Pointer       BlueprintPointer;
+  typedef selxBlueprintObject::ConstPointer  BlueprintConstPointer;
+  itkSetObjectMacro( Blueprint, selxBlueprintObject );
+  const Blueprint & GetBlueprint( void );
 
-  itkSetObjectMacro( Blueprint, BlueprintType );
   typedef selxLoggerObject::Logger         Logger;
   typedef selxLoggerObject::Pointer        LoggerObjectPointer;
   typedef selxLoggerObject::ConstPointer   LoggerObjectConstPointer;
@@ -131,12 +131,13 @@ protected:
 
 private:
 
+  LoggerObjectPointer m_Logger;
+
   //TODO make const correct
-  BlueprintType::Pointer m_Blueprint;
+  BlueprintPointer m_Blueprint;
 
   bool m_IsConnected;
   bool m_AllUniqueComponents;
-  bool m_IsBlueprintParsedOnce;
 };
 } // namespace elx
 

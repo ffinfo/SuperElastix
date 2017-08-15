@@ -30,15 +30,27 @@ namespace selx
 SuperElastixFilterBase
 ::SuperElastixFilterBase( ) :
   m_IsConnected( false ),
-  m_AllUniqueComponents( false ),
-  m_IsBlueprintParsedOnce( false )
+  m_AllUniqueComponents( false )
 {
-  // Disable "Primary" as required input
-  // TODO: Blueprint should become primary
-  this->SetRequiredInputNames( {} );
+  this->SetPrimaryInputName( "Blueprint" );
+
   // Set default logger
   this->SetInput( "Logger", selxLoggerObject::New() );
 } // end Constructor
+
+const selxLoggerObject::Logger &
+SuperElastixFilterBase
+::GetLogger( void )
+{
+  return this->m_Logger->GetLogger();
+}
+
+const selxBlueprintObject::Blueprint &
+SuperElastixFilterBase
+::GetBlueprint( void )
+{
+  return this->m_Blueprint->GetBlueprint();
+}
 
 
 /*
@@ -56,15 +68,12 @@ bool
 SuperElastixFilterBase
 ::ParseBlueprint()
 {
-  if( ( !this->m_IsBlueprintParsedOnce ) || ( this->m_Blueprint->GetMTime() > this->GetMTime() ) )
+  if( ( this->GetInput( "Blueprint" )->GetMTime() > this->GetMTime() ) )
   {
-    // Was Blueprint modified by Set() or by AddBlueprint?
-    // delete previous blueprint and start all over with new one
-    m_NetworkBuilder = m_NetworkBuilderFactory->New( *this->m_Logger->Get() );
-    this->m_NetworkBuilder->AddBlueprint( this->m_Blueprint->Get() );
-    this->m_AllUniqueComponents   = this->m_NetworkBuilder->Configure();
-    this->m_IsBlueprintParsedOnce = true;
-    this->Modified();
+    // TODO(km): Pass ref to uniq. pointer and dereference inside
+    m_NetworkBuilder = m_NetworkBuilderFactory->New( this->GetLogger() );
+    this->m_NetworkBuilder->AddBlueprint( this->GetBlueprint() );
+    this->m_AllUniqueComponents = this->m_NetworkBuilder->Configure();
   }
   return this->m_AllUniqueComponents;
 }
@@ -282,20 +291,5 @@ SuperElastixFilterBase
   this->GenerateData();
 }
 
-
-void
-SuperElastixFilterBase
-::SetLogger( LoggerPointer logger ) 
-{
-  this->m_Logger = logger;
-}
-
-
-SuperElastixFilterBase::LoggerPointer
-SuperElastixFilterBase
-::GetLogger( void ) 
-{
-  return m_Logger;
-}
 
 } // namespace elx

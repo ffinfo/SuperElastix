@@ -17,8 +17,10 @@
  *
  *=========================================================================*/
 
-#ifndef Blueprint_h
-#define Blueprint_h
+#ifndef selxBlueprintObject_h
+#define selxBlueprintObject_h
+
+#include "itkDataObject.h"
 
 #include <string>
 #include <vector>
@@ -27,24 +29,34 @@
 
 namespace selx
 {
-class Blueprint
+class selxBlueprintObject : public itk::DataObject
 {
 public:
+
+  /** Standard ITK typedefs. */
+  typedef selxBlueprintObject             Self;
+  typedef itk::ProcessObject              Superclass;
+  typedef itk::SmartPointer< Self >       Pointer;
+  typedef itk::SmartPointer< const Self > ConstPointer;
+
+  /** Method for creation through the object factory. */
+  itkNewMacro( Self );
+
+  /** Run-time type information (and related methods). */
+  itkTypeMacro( Self, itk::ProcessObject );
 
   typedef std::string                                      ParameterKeyType;
   typedef std::vector< std::string >                       ParameterValueType;
   typedef std::map< ParameterKeyType, ParameterValueType > ParameterMapType;
   typedef std::string                                      ComponentNameType;
   typedef std::vector< ComponentNameType >                 ComponentNamesType;
-  typedef std::unique_ptr< Blueprint >                     Pointer;
-  typedef std::unique_ptr< const Blueprint >               ConstPointer;
 
-  Blueprint( void );
-  Blueprint( const Blueprint & other );                   // copyable
-  Blueprint & operator=( const Blueprint & other );       //
+  /** The actual blueprint is a pimpled member variable */
+  class Blueprint;
+  typedef std::unique_ptr< Blueprint > BlueprintPointer;
 
-  //Blueprint(Blueprint&&);
-  ~Blueprint( void );
+  void SetBlueprint( Blueprint, BlueprintPointer );
+  const Blueprint & GetBlueprint( void );
 
   bool SetComponent( ComponentNameType, ParameterMapType parameterMap );
 
@@ -68,7 +80,7 @@ public:
   //std::unique_ptr<Blueprint> Clone(Blueprint const &other );
 
   // "functional" composition of blueprints is done by adding settings of other to this blueprint. Redefining/overwriting properties is not allowed and returns false.
-  bool ComposeWith( std::unique_ptr< Blueprint > const & other );
+  bool ComposeWith(const selxBlueprintObject &other);
 
   // Returns a vector of the Component names at the incoming direction
   ComponentNamesType GetInputNames( const ComponentNameType name ) const;
@@ -80,9 +92,8 @@ public:
 
 private:
 
-  struct BlueprintImpl;
-  std::unique_ptr< BlueprintImpl > m_Pimple;
+  BlueprintPointer m_Blueprint;
 };
 }
 
-#endif // #define Blueprint_h
+#endif // #define selxBlueprintObject_h
