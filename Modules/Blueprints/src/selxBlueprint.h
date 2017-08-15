@@ -114,6 +114,7 @@ public:
 
   ConnectionIndexType GetConnectionIndex( ComponentNameType upsteam, ComponentNameType downstream ) const;
 
+private:
   GraphType m_Graph;
 };
 } // namespace selx

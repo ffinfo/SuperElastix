@@ -25,14 +25,14 @@ namespace selx
 
 void
 selxLoggerObject
-::SetLogger( Logger blueprint )
+::SetLogger( const Logger & logger )
 {
   this->Modified();
-  this->m_Logger = LoggerPointer( blueprint );
+  this->m_Logger = LoggerPointer( logger );
 }
 
 
-const selxLoggerObject::Logger&
+const Logger &
 selxLoggerObject
 ::GetLogger( void)
 {

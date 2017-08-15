@@ -55,7 +55,7 @@ public:
   class Blueprint;
   typedef std::unique_ptr< Blueprint > BlueprintPointer;
 
-  void SetBlueprint( Blueprint, BlueprintPointer );
+  void SetBlueprint( Blueprint );
   const Blueprint & GetBlueprint( void );
 
   bool SetComponent( ComponentNameType, ParameterMapType parameterMap );

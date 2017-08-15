@@ -58,8 +58,8 @@ public:
   class Logger;
   typedef std::unique_ptr< Logger > LoggerPointer;
 
-  void SetLogger( Logger, LoggerPointer );
-  const Logger & GetLogger(void );
+  void SetLogger( const Logger & logger );
+  const Logger & GetLogger( void );
 
   typedef const std::string ChannelType;
   typedef const std::string FormatType;
