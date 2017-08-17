@@ -54,7 +54,7 @@ public:
   typedef std::shared_ptr< Self >       Pointer;
   typedef std::shared_ptr< const Self > ConstPointer;
 
-  ItkMeanSquaresImageToImageMetricv4Component( const std::string & name, const Logger & logger );
+  ItkMeanSquaresImageToImageMetricv4Component( const std::string & name, Logger & logger );
   virtual ~ItkMeanSquaresImageToImageMetricv4Component();
 
   typedef TPixel PixelType;

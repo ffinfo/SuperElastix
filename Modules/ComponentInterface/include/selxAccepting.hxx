@@ -25,8 +25,6 @@
 
 namespace selx
 {
-//template< >
-//Accepting< >::Accepting(const Logger & logger) : m_Logger(logger);
 
 template< typename FirstInterface, typename ... RestInterfaces  >
 Accepting< FirstInterface, RestInterfaces ... >::Accepting() : m_Logger(*(new Logger()))
@@ -35,7 +33,7 @@ Accepting< FirstInterface, RestInterfaces ... >::Accepting() : m_Logger(*(new Lo
 }
 
 template< typename FirstInterface, typename ... RestInterfaces  >
-Accepting< FirstInterface, RestInterfaces ... >::Accepting(const Logger & logger) : m_Logger(logger)
+Accepting< FirstInterface, RestInterfaces ... >::Accepting( Logger & logger ) : m_Logger(logger)
 {}
 
 template< typename FirstInterface, typename ... RestInterfaces >

@@ -68,7 +68,7 @@ public:
   typedef std::shared_ptr< Self >       Pointer;
   typedef std::shared_ptr< const Self > ConstPointer;
 
-  MonolithicTransformixComponent( const std::string & name, const Logger & logger );
+  MonolithicTransformixComponent( const std::string & name, Logger & logger );
   virtual ~MonolithicTransformixComponent();
 
   typedef typename ComponentBase::CriterionType CriterionType;

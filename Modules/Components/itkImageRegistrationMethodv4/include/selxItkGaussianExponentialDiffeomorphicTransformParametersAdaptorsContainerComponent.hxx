@@ -24,7 +24,7 @@ namespace selx
 template< int Dimensionality, class TransformInternalComputationValueType >
 ItkGaussianExponentialDiffeomorphicTransformParametersAdaptorsContainerComponent< Dimensionality,
 TransformInternalComputationValueType >::ItkGaussianExponentialDiffeomorphicTransformParametersAdaptorsContainerComponent( const std::string & name,
-  const Logger & logger )
+  Logger & logger )
   : Superclass( name, logger )
 {
 }

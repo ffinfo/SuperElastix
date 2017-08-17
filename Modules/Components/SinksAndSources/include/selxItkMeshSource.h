@@ -51,7 +51,7 @@ public:
   typedef std::shared_ptr< Self >       Pointer;
   typedef std::shared_ptr< const Self > ConstPointer;
 
-  ItkMeshSourceComponent( const std::string & name, const Logger & logger );
+  ItkMeshSourceComponent( const std::string & name, Logger & logger );
   virtual ~ItkMeshSourceComponent();
 
   typedef itk::Mesh< TPixel, Dimensionality >         ItkMeshType;

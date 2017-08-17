@@ -360,7 +360,7 @@ Blueprint
 
 
 Blueprint::ComponentNamesType
-Blueprint::BlueprintImpl
+Blueprint::Blueprint
 ::GetOutputNames( const ComponentNameType name ) const
 {
   ComponentNamesType     container;
@@ -374,8 +374,8 @@ Blueprint::BlueprintImpl
 }
 
 
-Blueprint::BlueprintImpl::ConnectionIndexType
-Blueprint::BlueprintImpl
+Blueprint::Blueprint::ConnectionIndexType
+Blueprint::Blueprint
 ::GetConnectionIndex( ComponentNameType upstream, ComponentNameType downstream ) const
 {
   // This function is part of the internal API and should fail hard if we use it incorrectly
@@ -389,7 +389,7 @@ Blueprint::BlueprintImpl
 
 
 void
-Blueprint::BlueprintImpl
+Blueprint::Blueprint
 ::Write( const std::string filename )
 {
   std::ofstream dotfile( filename.c_str() );

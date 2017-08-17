@@ -58,7 +58,7 @@ public:
   typedef std::map<
     std::string, RegistrationControllerStartInterface::Pointer > RegistrationControllerStartInterfaceMapType;
 
-  NetworkBuilder( const Logger & logger );
+  NetworkBuilder( Logger & logger, Blueprint & blueprint );
   virtual ~NetworkBuilder() {}
 
   virtual bool AddBlueprint( const Blueprint & blueprint );
@@ -115,7 +115,7 @@ protected:
   // A selector for each node, that each can hold multiple instantiated components. Ultimately is should be 1 component each.
   ComponentSelectorContainerType  m_ComponentSelectorContainer;
   bool                            m_isConfigured;
-  const Logger &                  m_Logger;
+  Logger &                        m_Logger;
   Blueprint &                     m_Blueprint;
 
 private:

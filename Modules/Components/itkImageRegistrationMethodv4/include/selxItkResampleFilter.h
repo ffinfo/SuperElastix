@@ -65,7 +65,7 @@ public:
   typedef std::shared_ptr< Self >       Pointer;
   typedef std::shared_ptr< const Self > ConstPointer;
 
-  ItkResampleFilterComponent( const std::string & name, const Logger & logger );
+  ItkResampleFilterComponent( const std::string & name, Logger & logger );
   virtual ~ItkResampleFilterComponent();
 
   typedef TPixel PixelType;

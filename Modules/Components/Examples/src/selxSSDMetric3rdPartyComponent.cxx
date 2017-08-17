@@ -20,7 +20,7 @@
 #include "selxSSDMetric3rdPartyComponent.h"
 namespace selx
 {
-SSDMetric3rdPartyComponent::SSDMetric3rdPartyComponent( const std::string & name, const Logger & logger ) : Superclass( name, logger )
+SSDMetric3rdPartyComponent::SSDMetric3rdPartyComponent( const std::string & name, Logger & logger ) : Superclass( name, logger )
 {
   this->theImplementation = new Example3rdParty::SSDMetric3rdParty();
 }

@@ -23,16 +23,13 @@
 namespace selx
 {
 
-void
 selxLoggerObject
-::SetLogger( const Logger & logger )
+::selxLoggerObject()
 {
-  this->Modified();
-  this->m_Logger = LoggerPointer( logger );
+  this->m_Logger = LoggerPointer( new Logger() );
 }
 
-
-const Logger &
+Logger &
 selxLoggerObject
 ::GetLogger( void)
 {
@@ -70,7 +67,7 @@ selxLoggerObject
 
 void
 selxLoggerObject
-::Log( SeverityType severity, MessageType message ) const
+::Log( SeverityType severity, MessageType message )
 {
   this->m_Logger->Log( severity, message );
 }

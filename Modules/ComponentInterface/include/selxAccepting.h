@@ -34,7 +34,7 @@ public:
   //Accepting() = delete;
   Accepting() {};
 
-  Accepting(const Logger & logger) {};// : m_Logger(logger){};
+  Accepting( Logger & logger ) {};
 
   static unsigned int CountMeetsCriteria( const ComponentBase::InterfaceCriteriaType ) { return 0; }
   //no interface called interfacename ;
@@ -64,7 +64,7 @@ public:
   //Accepting() = delete;
   Accepting();
 
-  Accepting(const Logger & logger);
+  Accepting( Logger & logger );
 
   static unsigned int CountMeetsCriteria( const ComponentBase::InterfaceCriteriaType );
 
@@ -80,7 +80,7 @@ public:
 protected:
 
 private:
-  const Logger & m_Logger;
+  Logger & m_Logger;
 };
 } //end namespace selx
 #ifndef ITK_MANUAL_INSTANTIATION

@@ -21,6 +21,7 @@
 #define selxBlueprintObject_h
 
 #include "itkDataObject.h"
+#include "itkObjectFactory.h"
 
 #include <string>
 #include <vector>
@@ -29,6 +30,9 @@
 
 namespace selx
 {
+
+class Blueprint;
+
 class selxBlueprintObject : public itk::DataObject
 {
 public:
@@ -43,7 +47,7 @@ public:
   itkNewMacro( Self );
 
   /** Run-time type information (and related methods). */
-  itkTypeMacro( Self, itk::ProcessObject );
+  itkTypeMacro( Self, itk::DataObject );
 
   typedef std::string                                      ParameterKeyType;
   typedef std::vector< std::string >                       ParameterValueType;
@@ -52,11 +56,10 @@ public:
   typedef std::vector< ComponentNameType >                 ComponentNamesType;
 
   /** The actual blueprint is a pimpled member variable */
-  class Blueprint;
   typedef std::unique_ptr< Blueprint > BlueprintPointer;
 
-  void SetBlueprint( Blueprint );
-  const Blueprint & GetBlueprint( void );
+  void SetBlueprint( Blueprint & blueprint );
+  Blueprint & GetBlueprint( void );
 
   bool SetComponent( ComponentNameType, ParameterMapType parameterMap );
 
@@ -80,7 +83,7 @@ public:
   //std::unique_ptr<Blueprint> Clone(Blueprint const &other );
 
   // "functional" composition of blueprints is done by adding settings of other to this blueprint. Redefining/overwriting properties is not allowed and returns false.
-  bool ComposeWith(const selxBlueprintObject &other);
+  bool ComposeWith( selxBlueprintObject& other );
 
   // Returns a vector of the Component names at the incoming direction
   ComponentNamesType GetInputNames( const ComponentNameType name ) const;

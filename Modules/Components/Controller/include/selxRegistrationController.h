@@ -51,7 +51,7 @@ public:
   typedef std::shared_ptr< Self >       Pointer;
   typedef std::shared_ptr< const Self > ConstPointer;
 
-  RegistrationControllerComponent( const std::string & name, const Logger & logger );
+  RegistrationControllerComponent(const std::string &name, Logger &logger);
   virtual ~RegistrationControllerComponent();
 
   // Accepting Interfaces:

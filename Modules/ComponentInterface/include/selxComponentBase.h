@@ -39,7 +39,7 @@ public:
 
   //ComponentBase() = delete;
   ComponentBase();
-  ComponentBase( const std::string & name, const Logger & logger );
+  ComponentBase( const std::string & name, Logger & logger );
   virtual ~ComponentBase() {}
 
   typedef std::shared_ptr< ComponentBase >       Pointer;
@@ -72,7 +72,7 @@ public:
   virtual bool ConnectionsSatisfied() = 0;
 
   const std::string m_Name;
-  const Logger & m_Logger;
+  Logger & m_Logger;
 };
 } // end namespace selx
 

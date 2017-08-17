@@ -17,7 +17,7 @@
  *
  *=========================================================================*/
 
-// There already is an selxLoggerObject preprocessor definition in ITK
+// There already is an sitkLogger preprocessor definition in ITK
 #ifndef selxLoggerObject_h
 #define selxLoggerObject_h
 
@@ -25,6 +25,7 @@
 #include <memory>
 
 #include "itkDataObject.h"
+#include "itkObjectFactory.h"
 
 namespace selx
 {
@@ -38,12 +39,14 @@ enum class SeverityType {
   SELX_FATAL
 };
 
+class Logger;
+
 class selxLoggerObject : public itk::DataObject
 {
 public:
 
   /** Standard ITK typedefs. */
-  typedef selxLoggerObject                       Self;
+  typedef selxLoggerObject                Self;
   typedef itk::ProcessObject              Superclass;
   typedef itk::SmartPointer< Self >       Pointer;
   typedef itk::SmartPointer< const Self > ConstPointer;
@@ -52,14 +55,14 @@ public:
   itkNewMacro( Self );
 
   /** Run-time type information (and related methods). */
-  itkTypeMacro( Self, itk::ProcessObject );
+  itkTypeMacro( Self, itk::DataObject );
+
+  /* m_Logger is initialized in the default constructor */
+  selxLoggerObject();
+  Logger & GetLogger( void );
 
   /** The actual logger is a pimpled member variable */
-  class Logger;
   typedef std::unique_ptr< Logger > LoggerPointer;
-
-  void SetLogger( const Logger & logger );
-  const Logger & GetLogger( void );
 
   typedef const std::string ChannelType;
   typedef const std::string FormatType;
@@ -73,13 +76,15 @@ public:
   //               Logger::ChannelType channel = "SuperElastix",
   //               FormatType format = "[%LineID% %TimeStamp% %ComponentName% %Channel% %SeverityLevel%]: %Message%" );
 
-  virtual void Log( SeverityType severity, MessageType message ) const;
+  virtual void Log( SeverityType severity, MessageType message );
 
   // void Log( ChannelType channel, SeverityType severity, MessageType message );
 
+
+
 private:
 
-  std::unique_ptr< Logger > m_Logger;
+  LoggerPointer m_Logger;
 };
 } // namespace
 

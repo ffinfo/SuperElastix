@@ -23,17 +23,16 @@
 namespace selx
 {
 
-
 void
 selxBlueprintObject
-::SetBlueprint( Blueprint blueprint )
+::SetBlueprint( Blueprint & blueprint )
 {
   this->Modified();
-  this->m_Blueprint = BlueprintPointer( blueprint );
+  this->m_Blueprint = BlueprintPointer( &blueprint );
 }
 
 
-const selxBlueprintObject &
+Blueprint &
 selxBlueprintObject
 ::GetBlueprint( void)
 {
@@ -66,7 +65,7 @@ selxBlueprintObject
 
 
 bool
-selxBlueprint
+selxBlueprintObject
 ::DeleteComponent( ComponentNameType componentName )
 {
   this->Modified();
@@ -82,7 +81,7 @@ selxBlueprintObject::GetComponentNames( void ) const
 
 
 bool
-selxBlueprint
+selxBlueprintObject
 ::SetConnection( ComponentNameType upstream, ComponentNameType downstream, ParameterMapType parameterMap )
 {
   this->Modified();
@@ -125,10 +124,10 @@ selxBlueprintObject
 
 bool
 selxBlueprintObject
-::ComposeWith(const Blueprint &other)
+::ComposeWith( selxBlueprintObject& other)
 {
   this->Modified();
-  return this->m_Blueprint->ComposeWith( other );
+  return this->m_Blueprint->ComposeWith( other.GetBlueprint() );
 }
 
 

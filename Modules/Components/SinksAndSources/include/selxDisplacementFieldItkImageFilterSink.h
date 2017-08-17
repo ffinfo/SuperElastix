@@ -51,7 +51,7 @@ public:
   typedef std::shared_ptr< Self >       Pointer;
   typedef std::shared_ptr< const Self > ConstPointer;
 
-  DisplacementFieldItkImageFilterSinkComponent( const std::string & name, const Logger & logger );
+  DisplacementFieldItkImageFilterSinkComponent( const std::string & name, Logger & logger );
   virtual ~DisplacementFieldItkImageFilterSinkComponent();
 
   typedef TPixel PixelType;

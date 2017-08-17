@@ -25,7 +25,7 @@ namespace selx
 {
 template< class InternalComputationValueType >
 ItkGradientDescentOptimizerv4Component< InternalComputationValueType >::ItkGradientDescentOptimizerv4Component( const std::string & name,
-  const Logger & logger ) :
+  Logger & logger ) :
   Superclass( name, logger )
 {
   m_Optimizer = GradientDescentOptimizerv4Type::New();

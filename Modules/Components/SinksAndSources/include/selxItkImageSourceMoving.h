@@ -50,7 +50,7 @@ public:
   typedef itk::SmartPointer< Self >       Pointer;
   typedef itk::SmartPointer< const Self > ConstPointer;
 
-  ItkImageSourceMovingComponent( const std::string & name, const Logger & logger );
+  ItkImageSourceMovingComponent( const std::string & name, Logger & logger );
   virtual ~ItkImageSourceMovingComponent();
 
   typedef typename itkImageMovingInterface< Dimensionality, TPixel >::ItkImageType ItkImageType;

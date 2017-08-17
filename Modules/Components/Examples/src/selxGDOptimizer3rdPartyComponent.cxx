@@ -21,7 +21,7 @@
 
 namespace selx
 {
-GDOptimizer3rdPartyComponent::GDOptimizer3rdPartyComponent( const std::string & name, const Logger & logger ) : Superclass( name, logger )
+GDOptimizer3rdPartyComponent::GDOptimizer3rdPartyComponent( const std::string & name, Logger & logger ) : Superclass( name, logger )
 {
   this->theImplementation = new Example3rdParty::GDOptimizer3rdParty();
   this->MetricObject      = new Metric3rdPartyWrapper();

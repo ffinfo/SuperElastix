@@ -21,7 +21,7 @@
 
 namespace selx
 {
-GDOptimizer4thPartyComponent::GDOptimizer4thPartyComponent( const std::string & name, const Logger & logger ) : Superclass( name, logger )
+GDOptimizer4thPartyComponent::GDOptimizer4thPartyComponent( const std::string & name, Logger & logger ) : Superclass( name, logger )
 {
   this->theImplementation = new Example4thParty::GDOptimizer4thParty();
   this->MetricObject      = new Metric4thPartyWrapper();

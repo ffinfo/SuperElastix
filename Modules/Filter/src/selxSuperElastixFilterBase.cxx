@@ -37,20 +37,20 @@ SuperElastixFilterBase
   // Set default logger
   this->SetInput( "Logger", selxLoggerObject::New() );
 } // end Constructor
-
-const selxLoggerObject::Logger &
-SuperElastixFilterBase
-::GetLogger( void )
-{
-  return this->m_Logger->GetLogger();
-}
-
-const selxBlueprintObject::Blueprint &
-SuperElastixFilterBase
-::GetBlueprint( void )
-{
-  return this->m_Blueprint->GetBlueprint();
-}
+//
+//selxLoggerObject::Pointer
+//SuperElastixFilterBase
+//::GetLogger( void )
+//{
+//  return this->m_Logger->GetLogger();
+//}
+//
+//selxBlueprintObject::Pointer
+//SuperElastixFilterBase
+//::GetBlueprint( void )
+//{
+//  return this->m_Blueprint;
+//}
 
 
 /*
@@ -71,8 +71,7 @@ SuperElastixFilterBase
   if( ( this->GetInput( "Blueprint" )->GetMTime() > this->GetMTime() ) )
   {
     // TODO(km): Pass ref to uniq. pointer and dereference inside
-    m_NetworkBuilder = m_NetworkBuilderFactory->New( this->GetLogger() );
-    this->m_NetworkBuilder->AddBlueprint( this->GetBlueprint() );
+    m_NetworkBuilder = m_NetworkBuilderFactory->New( this->m_Logger->GetLogger(), this->m_Blueprint->GetBlueprint() );
     this->m_AllUniqueComponents = this->m_NetworkBuilder->Configure();
   }
   return this->m_AllUniqueComponents;

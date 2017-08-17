@@ -50,7 +50,7 @@ public:
   typedef ComponentListType::size_type      NumberOfComponentsType;
   /** set selection criteria for possibleComponents*/
 
-  ComponentSelector( const std::string & name, const Logger & logger );
+  ComponentSelector( const std::string & name, Logger & logger );
 
   /** Narrow selection criteria*/
   void AddCriterion( const CriterionType & criterion );

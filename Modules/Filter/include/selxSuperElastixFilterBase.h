@@ -63,17 +63,15 @@ public:
   typedef AnyFileReader AnyFileReaderType;
   typedef AnyFileWriter AnyFileWriterType;
 
-  typedef selxBlueprintObject::Blueprint     Blueprint;
-  typedef selxBlueprintObject::Pointer       BlueprintPointer;
-  typedef selxBlueprintObject::ConstPointer  BlueprintConstPointer;
+  typedef selxBlueprintObject::Pointer       BlueprintObjectPointer;
+  typedef selxBlueprintObject::ConstPointer  BlueprintObjectConstPointer;
   itkSetObjectMacro( Blueprint, selxBlueprintObject );
-  const Blueprint & GetBlueprint( void );
+  itkGetObjectMacro( Blueprint, selxBlueprintObject );
 
-  typedef selxLoggerObject::Logger         Logger;
   typedef selxLoggerObject::Pointer        LoggerObjectPointer;
   typedef selxLoggerObject::ConstPointer   LoggerObjectConstPointer;
   itkSetObjectMacro( Logger, selxLoggerObject );
-  const Logger & GetLogger( void );
+  itkGetConstObjectMacro( Logger, selxLoggerObject );
 
   // Adding a Blueprint composes SuperElastixFilter' internal blueprint (accessible by Set/Get Blueprint) with the otherBlueprint.
   // void AddBlueprint(BlueprintPointer otherBlueprint);
@@ -128,13 +126,12 @@ protected:
 
   std::unique_ptr< NetworkBuilderFactoryBase > m_NetworkBuilderFactory;
   std::unique_ptr< NetworkBuilderBase > m_NetworkBuilder;
+  LoggerObjectPointer m_Logger;
 
 private:
 
-  LoggerObjectPointer m_Logger;
-
   //TODO make const correct
-  BlueprintPointer m_Blueprint;
+  BlueprintObjectPointer m_Blueprint;
 
   bool m_IsConnected;
   bool m_AllUniqueComponents;

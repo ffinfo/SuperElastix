@@ -61,7 +61,7 @@ public:
   typedef std::shared_ptr< Self >       Pointer;
   typedef std::shared_ptr< const Self > ConstPointer;
 
-  ItkCompositeTransformComponent( const std::string & name, const Logger & logger );
+  ItkCompositeTransformComponent( const std::string & name, Logger & logger );
   virtual ~ItkCompositeTransformComponent();
 
   /**  Type of the optimizer. */
